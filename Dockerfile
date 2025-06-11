@@ -20,4 +20,4 @@ EXPOSE 10000
 # Run the Flask server
 # CMD ["python", "server.py"]
 
-CMD ["gunicorn", "-w", "1", "-b", "0.0.0.0:5000", "server:app"]
+CMD ["gunicorn", "-w", "1", "-b", "0.0.0.0:10000", "server:app"]
