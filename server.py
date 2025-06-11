@@ -49,7 +49,6 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 def get_face_embedding(image_path):
-    print(2.1)
     if not os.path.exists(image_path):
         logging.error(f"Image file not found: {image_path}")
         return None
@@ -57,12 +56,9 @@ def get_face_embedding(image_path):
         logging.error(f"Unsupported image format for {image_path}. Allowed: {', '.join(ALLOWED_EXTENSIONS)}")
         return None
 
-    print(2.2)
     try:
         image = face_recognition.load_image_file(image_path)
-        print(2.3)
         face_bounding_boxes = face_recognition.face_locations(image)
-        print(2.4)
 
         if len(face_bounding_boxes) == 0:
             logging.warning(f"No face found in image: {image_path}. Cannot generate embedding.")
@@ -226,14 +222,10 @@ def search_by_photo():
         temp_dir = tempfile.mkdtemp()
         temp_file_path = os.path.join(temp_dir, image_file.filename)
         image_file.save(temp_file_path)
-
-        print(1)
         downscale(temp_file_path)
 
         logging.info(f"Saved uploaded image to: {temp_file_path}")
-        print(2)
         query_embedding = get_face_embedding(temp_file_path)
-        print(3)
         if query_embedding is None:
             return jsonify({"error": "Could not process image for face embedding. Ensure it contains exactly one clear face."}), 400
 
